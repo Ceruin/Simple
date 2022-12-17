@@ -94,6 +94,34 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 }
             ]
+        },
+        {
+            ""name"": ""Player"",
+            ""id"": ""2facd98c-7c23-4c01-9c3e-bdb2a1d345d8"",
+            ""actions"": [
+                {
+                    ""name"": ""Egg"",
+                    ""type"": ""Button"",
+                    ""id"": ""a148e3ae-9035-444f-9833-c785e205297c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""95918039-3aad-4618-8ee6-0c4f80ab0a5c"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": ""Keyboard&Mouse"",
+                    ""action"": ""Egg"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": [
@@ -162,6 +190,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // PlayerControls
         m_PlayerControls = asset.FindActionMap("PlayerControls", throwIfNotFound: true);
         m_PlayerControls_Movement = m_PlayerControls.FindAction("Movement", throwIfNotFound: true);
+        // Player
+        m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
+        m_Player_Egg = m_Player.FindAction("Egg", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -250,6 +281,39 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         }
     }
     public PlayerControlsActions @PlayerControls => new PlayerControlsActions(this);
+
+    // Player
+    private readonly InputActionMap m_Player;
+    private IPlayerActions m_PlayerActionsCallbackInterface;
+    private readonly InputAction m_Player_Egg;
+    public struct PlayerActions
+    {
+        private @PlayerInputActions m_Wrapper;
+        public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @Egg => m_Wrapper.m_Player_Egg;
+        public InputActionMap Get() { return m_Wrapper.m_Player; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(PlayerActions set) { return set.Get(); }
+        public void SetCallbacks(IPlayerActions instance)
+        {
+            if (m_Wrapper.m_PlayerActionsCallbackInterface != null)
+            {
+                @Egg.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEgg;
+                @Egg.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEgg;
+                @Egg.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnEgg;
+            }
+            m_Wrapper.m_PlayerActionsCallbackInterface = instance;
+            if (instance != null)
+            {
+                @Egg.started += instance.OnEgg;
+                @Egg.performed += instance.OnEgg;
+                @Egg.canceled += instance.OnEgg;
+            }
+        }
+    }
+    public PlayerActions @Player => new PlayerActions(this);
     private int m_KeyboardMouseSchemeIndex = -1;
     public InputControlScheme KeyboardMouseScheme
     {
@@ -298,5 +362,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface IPlayerControlsActions
     {
         void OnMovement(InputAction.CallbackContext context);
+    }
+    public interface IPlayerActions
+    {
+        void OnEgg(InputAction.CallbackContext context);
     }
 }

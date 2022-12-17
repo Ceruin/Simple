@@ -14,9 +14,13 @@ public class PlayerMovement : MonoBehaviour
     // This variable will store the input values.
     Vector2 direction;
 
+    // Get a reference to the player's Rigidbody2D component.
+    Rigidbody2D rigidbody;
+
     public void Awake()
     {
         inputActions = new PlayerInputActions();
+        rigidbody = GetComponent<Rigidbody2D>();
     }
 
     // Subscribe to the input actions events.
@@ -55,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     {
         // Normalize the direction vector to avoid diagonal movement being faster.
         direction = direction.normalized;
-        // Apply the movement to the player's position.
-        transform.position = transform.position + (Vector3)direction * speed * Time.deltaTime;
+        // Update the player's velocity based on the input value and movement speed.
+        rigidbody.velocity = direction * speed;
     }
 }
