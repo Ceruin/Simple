@@ -54,12 +54,21 @@ public class PlayerMovement : MonoBehaviour
         direction = Vector2.zero;
     }
 
-    // Update is called once per frame.
     void Update()
     {
         // Normalize the direction vector to avoid diagonal movement being faster.
         direction = direction.normalized;
         // Update the player's velocity based on the input value and movement speed.
         rigidbody.velocity = direction * speed;
+
+        // If the player is moving, set their rotation to face the direction they are moving.
+        if (direction != Vector2.zero)
+        {
+            // Calculate the angle between the player's current position and the direction they are moving.
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            // Set the player's rotation to face the movement direction.
+            transform.eulerAngles = new Vector3(0, 0, angle);
+        }
     }
+
 }
