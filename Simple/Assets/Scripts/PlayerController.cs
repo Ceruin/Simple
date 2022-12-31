@@ -74,7 +74,6 @@ public class PlayerController : MonoBehaviour
         // If the raycast hit a creature
         if (hit.collider != null)
         {
-            Debug.Log("HIT 2!");
             Creature creature = hit.collider.gameObject.GetComponent<Creature>();
 
             // Update the time at which the creature received attention
@@ -84,7 +83,7 @@ public class PlayerController : MonoBehaviour
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Mouse.current.position.ReadValue());
 
             // Set the creature's position to the mouse position
-            creature.gameObject.transform.position = mousePosition;
+            creature.gameObject.GetComponent<Rigidbody2D>().MovePosition(mousePosition);
 
             // Calculate the speed at which the creature was dragged
             float dragSpeed = (mousePosition - creature.gameObject.transform.position).magnitude / Time.deltaTime;
@@ -103,6 +102,7 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
+
 
     // Update is called once per frame.
     void Update()

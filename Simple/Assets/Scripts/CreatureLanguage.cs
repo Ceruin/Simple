@@ -1,14 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Linq;
 using UnityEngine;
 
+[Serializable]
 public class CreatureLanguage
 {
-    private EmojiController EmojiController;
-    public CreatureLanguage(EmojiController emojiController)
-    {
-        EmojiController = emojiController;
-    }
-
     // An enum for the emotions of the creature
     public enum Emotion
     {
@@ -17,33 +13,21 @@ public class CreatureLanguage
         Sadness,
         Anger,
         Flirting,
-        Average
+        Content
     }
 
-    // A dictionary that maps emotions to emojis
-    private Dictionary<Emotion, string> emotionEmojiMap = new Dictionary<Emotion, string>()
+    [Serializable]
+    public struct Emoji
     {
-        { Emotion.Hunger, "🤤" },
-        { Emotion.Happiness, "😃" },
-        { Emotion.Sadness, "😢" },
-        { Emotion.Anger, "😠" },
-        { Emotion.Flirting, "😍" },
-        { Emotion.Average, "😐" }
-    };
+        public Emotion Emotion;
+        public Sprite Sprite;
+    }
+
+    public Emoji[] Emotions;
 
     // Get the emoji for the specified emotion
-    public string GetEmoji(Emotion emotion)
+    public Emoji GetEmoji(Emotion emotion)
     {
-        return emotionEmojiMap[emotion];
-    }
-
-    // Make the creature speak with the specified emotion
-    public void Speak(Emotion emotion)
-    {
-        // Get the appropriate emoji for the emotion
-        string emoji = GetEmoji(emotion);
-
-        // Display the emoji above the creature
-        EmojiController.ShowEmoji(emoji);
+        return Emotions.Where(p => p.Emotion.Equals(emotion)).First();
     }
 }

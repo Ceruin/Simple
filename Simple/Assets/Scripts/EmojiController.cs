@@ -1,9 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using TMPro;
+using UnityEngine;
 
+[Serializable]
 public class EmojiController 
 {
     // The text mesh component for displaying the emotion emoji
-    public TextMesh emojiTextMesh;
+    public SpriteRenderer emojiTextMesh;
 
     // The duration for which the emotion emoji is displayed
     public float emojiDuration = 1.0f;
@@ -24,10 +27,10 @@ public class EmojiController
     }
 
     // Show the specified emoji above the creature
-    public void ShowEmoji(string emoji)
+    public void ShowEmoji(Sprite emoji)
     {
         // Set the text of the text mesh to the specified emoji
-        //emojiTextMesh.text = emoji;
+        emojiTextMesh.sprite = emoji;
 
         // Reset the emoji timer
         emojiTimer = 0.0f;
@@ -37,6 +40,6 @@ public class EmojiController
     public void HideEmoji()
     {
         // Set the text of the text mesh to an empty string
-        //emojiTextMesh.text = "";
+        emojiTextMesh.sprite = null;
     }
 }

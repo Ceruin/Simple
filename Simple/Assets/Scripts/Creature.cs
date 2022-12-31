@@ -24,16 +24,46 @@ public class Creature : MonoBehaviour
     // The time at which the creature last received attention, in seconds
     private float lastAttentionTime;
 
+    [SerializeField]
     // A reference to the creature language component
-    private CreatureLanguage creatureLanguage;
+    public CreatureLanguage creatureLanguage = new CreatureLanguage();
 
     private void Start()
     {
         movementController = new MovementController(this);
-        creatureLanguage = new CreatureLanguage(emojiController);
         SetLastAttentionTime();
         // Start the hatching process
         hatchingController.Hatch();
+    }
+
+    private void OnTriggerStay2D(Collider2D collider)
+    {
+        // If the collider is the boundary collider
+        if (collider.gameObject.tag == "Boundary")
+        {
+            // Get the boundary's bounds
+            Bounds boundaryBounds = collider.bounds;
+
+            // Get the creature's position
+            Vector3 creaturePosition = transform.position;
+
+            // If the creature's x position is outside the boundary's x bounds
+            if (creaturePosition.x < boundaryBounds.min.x || creaturePosition.x > boundaryBounds.max.x)
+            {
+                // Clamp the creature's x position to the boundary's x bounds
+                creaturePosition.x = Mathf.Clamp(creaturePosition.x, boundaryBounds.min.x, boundaryBounds.max.x);
+            }
+
+            // If the creature's y position is outside the boundary's y bounds
+            if (creaturePosition.y < boundaryBounds.min.y || creaturePosition.y > boundaryBounds.max.y)
+            {
+                // Clamp the creature's y position to the boundary's y bounds
+                creaturePosition.y = Mathf.Clamp(creaturePosition.y, boundaryBounds.min.y, boundaryBounds.max.y);
+            }
+
+            // Set the creature's position to the clamped position
+            transform.position = creaturePosition;
+        }
     }
 
     public void SetLastAttentionTime()
@@ -98,6 +128,6 @@ public class Creature : MonoBehaviour
     // Make the creature speak with a certain emotion
     public void Speak(CreatureLanguage.Emotion emotion)
     {
-        creatureLanguage.Speak(emotion);
+        emojiController.ShowEmoji(creatureLanguage.GetEmoji(emotion).Sprite);
     }
 }
