@@ -8,7 +8,8 @@ public class Creature : MonoBehaviour
     public HatchingController hatchingController = new HatchingController();
 
     // A reference to the movement controller component
-    private MovementController movementController;
+    [SerializeField]
+    public MovementController movementController = new MovementController();
 
     [SerializeField]
     // A reference to the emoji controller component
@@ -23,19 +24,48 @@ public class Creature : MonoBehaviour
 
     // The time at which the creature last received attention, in seconds
     private float lastAttentionTime;
-
+    // The sprites for the egg, intermediate, and final stages
+    public Sprite eggSprite;
+    public Sprite intermediateSprite;
+    public Sprite finalSprite;
     [SerializeField]
     // A reference to the creature language component
     public CreatureLanguage creatureLanguage = new CreatureLanguage();
+    // The hatching progress counter
+    private int hatchingProgress = 0;
 
+    // The sprite renderer component
+    private SpriteRenderer spriteRenderer;
     private void Start()
     {
-        movementController = new MovementController(this);
         SetLastAttentionTime();
         // Start the hatching process
         hatchingController.Hatch();
+        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
     }
 
+    public void Click()
+    {
+        hatchingProgress++;
+        UpdateSprite();
+    }
+
+    private void UpdateSprite()
+    {
+        Debug.Log("try update sprite");
+        if (hatchingProgress < 50)
+        {
+            spriteRenderer.sprite = eggSprite;
+        }
+        else if (hatchingProgress < 100)
+        {
+            spriteRenderer.sprite = intermediateSprite;
+        }
+        else
+        {
+            spriteRenderer.sprite = finalSprite;
+        }
+    }
     private void OnTriggerStay2D(Collider2D collider)
     {
         // If the collider is the boundary collider
@@ -85,7 +115,7 @@ public class Creature : MonoBehaviour
         if (hatchingController.isHatched)
         {
             // Update the creature's movement
-            movementController.Move();
+            movementController.Move(this);
 
             // Check the creature's feelings every feeling check interval seconds
             if (Time.time - lastAttentionTime >= feelingCheckInterval)

@@ -4316,7 +4316,7 @@ Camera:
     y: 0
     width: 1
     height: 1
-  near clip plane: 0.3
+  near clip plane: 0
   far clip plane: 1000
   field of view: 1.4519873
   orthographic: 1
@@ -54066,6 +54066,14 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1583213988141675702, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 1583213988141675702, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1684872579640509953, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
       propertyPath: m_RootOrder
       value: 7
@@ -54111,6 +54119,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1684872579640509958, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: eggSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ea9005f557dc3304694d9f812497a67f, type: 3}
+    - target: {fileID: 1684872579640509958, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: finalSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ef2b19c21c5a5bd4dbabed032e2e8b9b, type: 3}
+    - target: {fileID: 1684872579640509958, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: intermediateSprite
+      value: 
+      objectReference: {fileID: 21300000, guid: df90918114d7ec04184e0f8c3db8d706, type: 3}
+    - target: {fileID: 1684872579640509958, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
       propertyPath: feelingCheckInterval
       value: 5
       objectReference: {fileID: 0}
@@ -54121,6 +54141,22 @@ PrefabInstance:
     - target: {fileID: 1684872579640509959, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
       propertyPath: m_Name
       value: La Creatura
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684872580545252501, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: m_Size.x
+      value: 2.56
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684872580545252501, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: m_Size.y
+      value: 2.72
+      objectReference: {fileID: 0}
+    - target: {fileID: 1684872580545252501, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: ea9005f557dc3304694d9f812497a67f, type: 3}
+    - target: {fileID: 1684872580545252501, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}
+      propertyPath: m_WasSpriteAssigned
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80e1031fb3366c647ab3ffd623864348, type: 3}

@@ -87,9 +87,9 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Drag",
+                    "name": "Release",
                     "type": "Button",
-                    "id": "9379bd7c-6f86-4f6c-bb65-2e5416605c3b",
+                    "id": "76c0caa2-ebad-4896-b5c7-054d36a9f1bb",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -110,12 +110,12 @@
                 },
                 {
                     "name": "",
-                    "id": "1c1f635f-647b-4671-b137-5a2b2b4c61aa",
+                    "id": "0d1bb9ff-e687-4e79-89cc-18798040ce70",
                     "path": "<Mouse>/leftButton",
-                    "interactions": "Hold",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
                     "groups": "Keyboard&Mouse",
-                    "action": "Drag",
+                    "action": "Release",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

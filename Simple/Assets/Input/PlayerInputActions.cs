@@ -109,9 +109,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""Drag"",
+                    ""name"": ""Release"",
                     ""type"": ""Button"",
-                    ""id"": ""9379bd7c-6f86-4f6c-bb65-2e5416605c3b"",
+                    ""id"": ""76c0caa2-ebad-4896-b5c7-054d36a9f1bb"",
                     ""expectedControlType"": ""Button"",
                     ""processors"": """",
                     ""interactions"": """",
@@ -132,12 +132,12 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""1c1f635f-647b-4671-b137-5a2b2b4c61aa"",
+                    ""id"": ""0d1bb9ff-e687-4e79-89cc-18798040ce70"",
                     ""path"": ""<Mouse>/leftButton"",
-                    ""interactions"": ""Hold"",
+                    ""interactions"": ""Press(behavior=1)"",
                     ""processors"": """",
                     ""groups"": ""Keyboard&Mouse"",
-                    ""action"": ""Drag"",
+                    ""action"": ""Release"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -213,7 +213,7 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
         // Player
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Click = m_Player.FindAction("Click", throwIfNotFound: true);
-        m_Player_Drag = m_Player.FindAction("Drag", throwIfNotFound: true);
+        m_Player_Release = m_Player.FindAction("Release", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -307,13 +307,13 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     private readonly InputActionMap m_Player;
     private IPlayerActions m_PlayerActionsCallbackInterface;
     private readonly InputAction m_Player_Click;
-    private readonly InputAction m_Player_Drag;
+    private readonly InputAction m_Player_Release;
     public struct PlayerActions
     {
         private @PlayerInputActions m_Wrapper;
         public PlayerActions(@PlayerInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @Click => m_Wrapper.m_Player_Click;
-        public InputAction @Drag => m_Wrapper.m_Player_Drag;
+        public InputAction @Release => m_Wrapper.m_Player_Release;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -326,9 +326,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Click.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
                 @Click.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
                 @Click.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnClick;
-                @Drag.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
-                @Drag.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
-                @Drag.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnDrag;
+                @Release.started -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRelease;
+                @Release.performed -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRelease;
+                @Release.canceled -= m_Wrapper.m_PlayerActionsCallbackInterface.OnRelease;
             }
             m_Wrapper.m_PlayerActionsCallbackInterface = instance;
             if (instance != null)
@@ -336,9 +336,9 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
                 @Click.started += instance.OnClick;
                 @Click.performed += instance.OnClick;
                 @Click.canceled += instance.OnClick;
-                @Drag.started += instance.OnDrag;
-                @Drag.performed += instance.OnDrag;
-                @Drag.canceled += instance.OnDrag;
+                @Release.started += instance.OnRelease;
+                @Release.performed += instance.OnRelease;
+                @Release.canceled += instance.OnRelease;
             }
         }
     }
@@ -395,6 +395,6 @@ public partial class @PlayerInputActions : IInputActionCollection2, IDisposable
     public interface IPlayerActions
     {
         void OnClick(InputAction.CallbackContext context);
-        void OnDrag(InputAction.CallbackContext context);
+        void OnRelease(InputAction.CallbackContext context);
     }
 }
