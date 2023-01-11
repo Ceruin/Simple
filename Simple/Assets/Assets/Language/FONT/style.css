@@ -1,0 +1,105 @@
+@font-face {
+  font-family: 'simplefont';
+  src:  url('fonts/simplefont.eot?ulv055');
+  src:  url('fonts/simplefont.eot?ulv055#iefix') format('embedded-opentype'),
+    url('fonts/simplefont.ttf?ulv055') format('truetype'),
+    url('fonts/simplefont.woff?ulv055') format('woff'),
+    url('fonts/simplefont.svg?ulv055#simplefont') format('svg');
+  font-weight: normal;
+  font-style: normal;
+  font-display: block;
+}
+
+[class^="simplefont-"], [class*=" simplefont-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'simplefont' !important;
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.simplefont-o:before {
+  content: "\e907";
+}
+.simplefont-p:before {
+  content: "\e908";
+}
+.simplefont-q:before {
+  content: "\e909";
+}
+.simplefont-r:before {
+  content: "\e90a";
+}
+.simplefont-s:before {
+  content: "\e90b";
+}
+.simplefont-t:before {
+  content: "\e90c";
+}
+.simplefont-u:before {
+  content: "\e90d";
+}
+.simplefont-v:before {
+  content: "\e900";
+}
+.simplefont-w:before {
+  content: "\e901";
+}
+.simplefont-x:before {
+  content: "\e902";
+}
+.simplefont-y:before {
+  content: "\e903";
+}
+.simplefont-z:before {
+  content: "\e904";
+}
+.simplefont-a:before {
+  content: "\e905";
+}
+.simplefont-b:before {
+  content: "\e90e";
+}
+.simplefont-c:before {
+  content: "\e90f";
+}
+.simplefont-d:before {
+  content: "\e910";
+}
+.simplefont-e:before {
+  content: "\e911";
+}
+.simplefont-f:before {
+  content: "\e912";
+}
+.simplefont-g:before {
+  content: "\e913";
+}
+.simplefont-h:before {
+  content: "\e914";
+}
+.simplefont-i:before {
+  content: "\e915";
+}
+.simplefont-j:before {
+  content: "\e916";
+}
+.simplefont-k:before {
+  content: "\e917";
+}
+.simplefont-l:before {
+  content: "\e918";
+}
+.simplefont-m:before {
+  content: "\e919";
+}
+.simplefont-n:before {
+  content: "\e906";
+}

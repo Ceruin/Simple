@@ -24,10 +24,15 @@ public class Creature : MonoBehaviour
 
     // The time at which the creature last received attention, in seconds
     private float lastAttentionTime;
+
     // The sprites for the egg, intermediate, and final stages
     public Sprite eggSprite;
     public Sprite intermediateSprite;
     public Sprite finalSprite;
+
+    // A reference to the animator component
+    private Animator animator;
+
     [SerializeField]
     // A reference to the creature language component
     public CreatureLanguage creatureLanguage = new CreatureLanguage();
@@ -41,29 +46,35 @@ public class Creature : MonoBehaviour
         SetLastAttentionTime();
         // Start the hatching process
         hatchingController.Hatch();
-        spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        // Get a reference to the animator component
+        animator = GetComponent<Animator>();
+        // Start the hatching animation
+        //animator.Play("HatchingAnimation");
     }
 
     public void Click()
     {
-        hatchingProgress++;
         UpdateSprite();
     }
 
     private void UpdateSprite()
     {
         Debug.Log("try update sprite");
-        if (hatchingProgress < 50)
+        if (hatchingController.percent < 50)
         {
             spriteRenderer.sprite = eggSprite;
+            GetComponent<PolygonCollider2D>().TryUpdateShapeToAttachedSprite();
         }
-        else if (hatchingProgress < 100)
+        else if (hatchingController.percent < 100)
         {
             spriteRenderer.sprite = intermediateSprite;
+            GetComponent<PolygonCollider2D>().TryUpdateShapeToAttachedSprite();
         }
         else
         {
             spriteRenderer.sprite = finalSprite;
+            GetComponent<PolygonCollider2D>().TryUpdateShapeToAttachedSprite();
         }
     }
     private void OnTriggerStay2D(Collider2D collider)
@@ -109,6 +120,14 @@ public class Creature : MonoBehaviour
         if (!hatchingController.isHatched)
         {
             hatchingController.Hatch();
+            Debug.Log("Time: " + hatchingController.hatchTimer + " Hatched?: " + hatchingController.isHatched);
+            // If the creature is in its egg stage
+            if (hatchingController.isHatched)
+            {
+                // Play the hatching animation
+                //animator.SetTrigger("Hatch");
+            }
+            UpdateSprite();
         }
 
         // If the creature is fully hatched, update its movement and feelings

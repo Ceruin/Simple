@@ -17,7 +17,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2598182540328190412
 Transform:
   m_ObjectHideFlags: 0
@@ -4823,7 +4823,8 @@ GameObject:
   - component: {fileID: 1684872579640509953}
   - component: {fileID: 1684872579640509958}
   - component: {fileID: 870904912}
-  - component: {fileID: 870904909}
+  - component: {fileID: 729438721}
+  - component: {fileID: 729438720}
   m_Layer: 0
   m_Name: La Creatura
   m_TagString: Untagged
@@ -4860,15 +4861,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a18c25844a3f22c4b914bda2b0f676cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hatchingController:
+    hatchTime: 30
+    isHatched: 0
+    hatchTimer: 0
   emojiController:
     emojiTextMesh: {fileID: 1583213988141675702}
-    emojiDuration: 20
+    emojiDuration: 2
   stats:
     happiness: 1
     health: 1
     speed: 2
     power: 1
-  feelingCheckInterval: 2
+  feelingCheckInterval: 5
+  eggSprite: {fileID: 21300000, guid: ea9005f557dc3304694d9f812497a67f, type: 3}
+  intermediateSprite: {fileID: 21300000, guid: df90918114d7ec04184e0f8c3db8d706, type: 3}
+  finalSprite: {fileID: 21300000, guid: ef2b19c21c5a5bd4dbabed032e2e8b9b, type: 3}
   creatureLanguage:
     Emotions:
     - Emotion: 0
@@ -4903,9 +4911,9 @@ Rigidbody2D:
   m_Interpolate: 1
   m_SleepingMode: 1
   m_CollisionDetection: 1
-  m_Constraints: 0
---- !u!61 &870904909
-BoxCollider2D:
+  m_Constraints: 4
+--- !u!60 &729438721
+PolygonCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -4917,58 +4925,38 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.0063581467, y: -0.00635767}
+  m_Offset: {x: 0, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0, y: 0}
-    oldSize: {x: 0, y: 0}
-    newSize: {x: 0, y: 0}
-    adaptiveTilingThreshold: 0
+    pivot: {x: 0.5, y: 0.5}
+    oldSize: {x: 2.56, y: 2.72}
+    newSize: {x: 2.56, y: 2.72}
+    adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1.1144505, y: 1.5976877}
-  m_EdgeRadius: 0
---- !u!1 &1684872580545252504
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1684872580545252507}
-  - component: {fileID: 1684872580545252501}
-  m_Layer: 0
-  m_Name: lilguy
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &1684872580545252507
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684872580545252504}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 1684872579640509953}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &1684872580545252501
+  m_Points:
+    m_Paths:
+    - - {x: 1.14, y: 0.39999998}
+      - {x: 1.15, y: 0.48}
+      - {x: 0.83, y: 0.79999995}
+      - {x: 0.19, y: 1.36}
+      - {x: -0.17999999, y: 1.36}
+      - {x: -0.97999996, y: 0.56}
+      - {x: -1.14, y: 0.45}
+      - {x: -1.28, y: 0.17}
+      - {x: -1.28, y: -0.9}
+      - {x: -0.82, y: -1.36}
+      - {x: 0.82, y: -1.36}
+      - {x: 1.28, y: -0.9}
+      - {x: 1.28, y: 0.11}
+--- !u!212 &729438720
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684872580545252504}
+  m_GameObject: {fileID: 1684872579640509959}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -5003,17 +4991,48 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: ef2b19c21c5a5bd4dbabed032e2e8b9b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ea9005f557dc3304694d9f812497a67f, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.12, y: 1.6}
+  m_Size: {x: 2.56, y: 2.72}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &1684872580545252504
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1684872580545252507}
+  m_Layer: 0
+  m_Name: lilguy
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1684872580545252507
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1684872580545252504}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1684872579640509953}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1879561278062302928
 GameObject:
   m_ObjectHideFlags: 0
@@ -5088,7 +5107,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 8c08d5c7d7cc170489c77dfe9b40d491, type: 3}
+  m_Sprite: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -5096,6 +5115,6 @@ SpriteRenderer:
   m_Size: {x: 2.24, y: 2.24}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
+  m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
