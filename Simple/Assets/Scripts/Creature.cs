@@ -171,7 +171,10 @@ public class Creature : MonoBehaviour
     // Change the creature's happiness by a certain amount
     public void ChangeHappiness(int amount)
     {
-        stats.happiness += amount;
+        if (amount > 0)
+            stats.IncreaseHappiness(amount);
+        else 
+            stats.DecreaseHappiness(amount);
     }
 
     // Make the creature speak with a certain emotion

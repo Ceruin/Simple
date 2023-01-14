@@ -4869,10 +4869,15 @@ MonoBehaviour:
     emojiTextMesh: {fileID: 1583213988141675702}
     emojiDuration: 2
   stats:
-    happiness: 1
-    health: 1
-    speed: 2
-    power: 1
+    Intelligence: 1
+    Strength: 1
+    Dexterity: 1
+    Hunger: 0
+    Age: 0
+    Happiness: 0
+    EvolutionState: 0
+    EmotionState: 0
+    learningRate: 0.1
   feelingCheckInterval: 5
   eggSprite: {fileID: 21300000, guid: ea9005f557dc3304694d9f812497a67f, type: 3}
   intermediateSprite: {fileID: 21300000, guid: df90918114d7ec04184e0f8c3db8d706, type: 3}

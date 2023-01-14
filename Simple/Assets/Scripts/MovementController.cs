@@ -19,12 +19,12 @@ public class MovementController
         Collider2D creatureCollider = creature.GetComponent<Collider2D>();
 
         // Calculate the future position
-        Vector3 futurePosition = creature.gameObject.transform.position + (Vector3)direction * creature.stats.speed * Time.deltaTime;
+        Vector3 futurePosition = creature.gameObject.transform.position + (Vector3)direction * creature.stats.Dexterity * Time.deltaTime;
 
         // Check if the future position will cross the other collider
         Vector2 origin = creature.gameObject.transform.position;
         Vector2 newdirection = futurePosition - creature.gameObject.transform.position;
-        RaycastHit2D hit = Physics2D.Raycast(origin, newdirection, creature.stats.speed * Time.deltaTime);
+        RaycastHit2D hit = Physics2D.Raycast(origin, newdirection, creature.stats.Dexterity * Time.deltaTime);
 
         if (hit.collider != null && hit.collider != creatureCollider)
         {
