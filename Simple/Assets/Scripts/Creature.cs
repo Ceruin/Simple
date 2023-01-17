@@ -49,8 +49,6 @@ public class Creature : MonoBehaviour
         spriteRenderer = GetComponent<SpriteRenderer>();
         // Get a reference to the animator component
         animator = GetComponent<Animator>();
-        // Start the hatching animation
-        //animator.Play("HatchingAnimation");
     }
 
     public void Click()
@@ -82,29 +80,26 @@ public class Creature : MonoBehaviour
         // If the collider is the boundary collider
         if (collider.gameObject.tag == "Boundary")
         {
-            // Get the boundary's bounds
-            Bounds boundaryBounds = collider.bounds;
-
-            // Get the creature's position
-            Vector3 creaturePosition = transform.position;
-
-            // If the creature's x position is outside the boundary's x bounds
-            if (creaturePosition.x < boundaryBounds.min.x || creaturePosition.x > boundaryBounds.max.x)
-            {
-                // Clamp the creature's x position to the boundary's x bounds
-                creaturePosition.x = Mathf.Clamp(creaturePosition.x, boundaryBounds.min.x, boundaryBounds.max.x);
-            }
-
-            // If the creature's y position is outside the boundary's y bounds
-            if (creaturePosition.y < boundaryBounds.min.y || creaturePosition.y > boundaryBounds.max.y)
-            {
-                // Clamp the creature's y position to the boundary's y bounds
-                creaturePosition.y = Mathf.Clamp(creaturePosition.y, boundaryBounds.min.y, boundaryBounds.max.y);
-            }
-
-            // Set the creature's position to the clamped position
-            transform.position = creaturePosition;
+            HandleBoundaryCollision(collider);
         }
+    }
+
+    private void HandleBoundaryCollision(Collider2D collider)
+    {
+        Bounds boundaryBounds = collider.bounds;
+        Vector3 creaturePosition = transform.position;
+
+        if (creaturePosition.x < boundaryBounds.min.x || creaturePosition.x > boundaryBounds.max.x)
+        {
+            creaturePosition.x = Mathf.Clamp(creaturePosition.x, boundaryBounds.min.x, boundaryBounds.max.x);
+        }
+
+        if (creaturePosition.y < boundaryBounds.min.y || creaturePosition.y > boundaryBounds.max.y)
+        {
+            creaturePosition.y = Mathf.Clamp(creaturePosition.y, boundaryBounds.min.y, boundaryBounds.max.y);
+        }
+
+        transform.position = creaturePosition;
     }
 
     public void SetLastAttentionTime()
@@ -113,9 +108,51 @@ public class Creature : MonoBehaviour
         lastAttentionTime = Time.time;
     }
 
+    public void CheckForEvolution()
+    {
+        if (stats.Age > 500f)
+        {
+            stats.Evolve();
+        }
+    }
+
+    public void UpdateHunger()
+    {
+        stats.IncreaseHunger(Mathf.Clamp(stats.Hunger + Time.deltaTime, 0f, 100f));
+    }
+    public void UpdateAge()
+    {
+        stats.IncreaseAge(Time.deltaTime);
+    }
+
     private void Update()
     {
-        emojiController.UpdateEmoji();
+        CheckForEvolution();
+        UpdateHunger();
+        UpdateAge();
+        DisplayEmotion();
+        UpdateUnhatched();
+        UpdateHatched();
+    }
+
+    private void UpdateHatched()
+    {
+        // If the creature is fully hatched, update its movement and feelings
+        if (hatchingController.isHatched)
+        {
+            // Update the creature's movement
+            movementController.Move(this);
+
+            // Check the creature's feelings every feeling check interval seconds
+            if (Time.time - lastAttentionTime >= feelingCheckInterval)
+            {
+                CheckFeelings();
+            }
+        }
+    }
+
+    private void UpdateUnhatched()
+    {
         // If the creature is not fully hatched, hasten the hatching process
         if (!hatchingController.isHatched)
         {
@@ -129,19 +166,11 @@ public class Creature : MonoBehaviour
             }
             UpdateSprite();
         }
+    }
 
-        // If the creature is fully hatched, update its movement and feelings
-        if (hatchingController.isHatched)
-        {
-            // Update the creature's movement
-            movementController.Move(this);
-
-            // Check the creature's feelings every feeling check interval seconds
-            if (Time.time - lastAttentionTime >= feelingCheckInterval)
-            {
-                CheckFeelings();
-            }
-        }
+    private void DisplayEmotion()
+    {
+        emojiController.UpdateEmoji();
     }
 
     // Update the creature's happiness based on the elapsed time since it last received attention
