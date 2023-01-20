@@ -51,6 +51,36 @@ public class Creature : MonoBehaviour
         animator = GetComponent<Animator>();
     }
 
+    private void CheckForItem()
+    {
+        // Check if there is an item within the pick up radius
+        Collider[] itemsInRadius = Physics.OverlapSphere(transform.position, pickUpRadius, LayerMask.GetMask("Item"));
+        if (itemsInRadius.Length > 0)
+        {
+            // Sort the items based on priority
+            // ...
+
+            // Set the currentItem variable to the highest priority item
+            currentItem = itemsInRadius[0].GetComponent<Item>();
+
+            // Make the creature path to the item
+
+            //agent.SetDestination(currentItem.transform.position);
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("Item"))
+        {
+            // Make the creature pick up the item
+            currentItem = other.GetComponent<Item>();
+            currentItem.PickUp();
+            currentItem.transform.parent = transform;
+            currentItem.transform.localPosition = new Vector3(0, 0, 1);
+        }
+    }
+
     public void Click()
     {
         UpdateSprite();
@@ -124,7 +154,9 @@ public class Creature : MonoBehaviour
     {
         stats.IncreaseAge(Time.deltaTime);
     }
+    public float pickUpRadius = 2.0f;
 
+    private Item currentItem;
     private void Update()
     {
         CheckForEvolution();
@@ -133,6 +165,7 @@ public class Creature : MonoBehaviour
         DisplayEmotion();
         UpdateUnhatched();
         UpdateHatched();
+        CheckForItem();
     }
 
     private void UpdateHatched()

@@ -13,6 +13,13 @@ public class MovementController
 
     public bool isDragged = false;
 
+    private Vector3 targetPosition;
+
+    public void MoveToLocation(Vector3 location)
+    {
+        targetPosition = location;
+    }
+
     void CheckForCollision(Creature creature)
     {
         // Get the collider on the creature
